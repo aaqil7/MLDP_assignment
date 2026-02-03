@@ -1,0 +1,45 @@
+{
+  "best_model": "rf",
+  "best_cv_f1": 0.9834045207700319,
+  "results": [
+    {
+      "model": "logreg",
+      "cv_f1": 0.9304521797709409,
+      "test_accuracy": 0.912568306010929,
+      "test_f1": 0.9312883435582822,
+      "test_roc_auc": 0.9719091220174829,
+      "best_params": {
+        "model__C": 0.08171116755294246,
+        "model__penalty": "l2",
+        "model__solver": "lbfgs"
+      }
+    },
+    {
+      "model": "rf",
+      "cv_f1": 0.9834045207700319,
+      "test_accuracy": 0.9882903981264637,
+      "test_f1": 0.990642545227698,
+      "test_roc_auc": 0.9991522963178033,
+      "best_params": {
+        "model__max_depth": 16,
+        "model__max_features": null,
+        "model__min_samples_leaf": 5,
+        "model__min_samples_split": 7,
+        "model__n_estimators": 301
+      }
+    },
+    {
+      "model": "gb",
+      "cv_f1": 0.9814636713666639,
+      "test_accuracy": 0.990632318501171,
+      "test_f1": 0.9925187032418953,
+      "test_roc_auc": 0.9989889772597654,
+      "best_params": {
+        "model__learning_rate": 0.19806732619189948,
+        "model__max_depth": 4,
+        "model__n_estimators": 346,
+        "model__subsample": 0.7935234027983427
+      }
+    }
+  ]
+}
