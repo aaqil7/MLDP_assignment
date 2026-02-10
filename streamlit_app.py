@@ -51,7 +51,15 @@ if st.button('Predict'):
     df_enc = df_enc.reindex(columns=TRAIN_COLS, fill_value=0)
 
     X_scaled = scaler.transform(df_enc)
-    pred = model.predict(X_scaled)[0]
+
+    # Get approval probability
+    proba = model.predict_proba(X_scaled)[0][1]
+
+    # Decision threshold (add-on)
+    threshold = 0.4
+    pred = 1 if proba >= threshold else 0
 
     label = 'Yes' if pred == 1 else 'No'
+
+    st.info(f'Approval Probability: {proba:.2%}')
     st.success(f'Loan Approved: {label}')
