@@ -12,23 +12,27 @@ with open(os.path.join(OUTPUTS, 'train_columns.json'), 'r') as f:
     TRAIN_COLS = json.load(f)
 
 st.title('Loan Status Prediction')
+st.caption('Enter applicant details. Example values are shown as hints.')
 
-# IMPORTANT: use the same feature names as your dataset
-income_annum = st.number_input('income_annum', min_value=0, value=120000)
-no_of_dependents = st.number_input('no_of_dependents', min_value=0, value=3)
-loan_amount = st.number_input('loan_amount', min_value=0, value=200000)
-loan_term = st.number_input('loan_term', min_value=0, value=360)
-cibil_score = st.number_input('cibil_score', min_value=0, max_value=900, value=750)
+income_annum = st.number_input('income_annum', min_value=0, value=0, help='Example: 120000')
+no_of_dependents = st.number_input('no_of_dependents', min_value=0, value=0, help='Example: 3')
+loan_amount = st.number_input('loan_amount', min_value=0, value=0, help='Example: 200000')
+loan_term = st.number_input('loan_term', min_value=0, value=0, help='Example: 360')
+cibil_score = st.number_input('cibil_score', min_value=0, max_value=900, value=0, help='Example: 750')
 
-residential_assets_value = st.number_input('residential_assets_value', min_value=0, value=0)
-commercial_assets_value = st.number_input('commercial_assets_value', min_value=0, value=0)
-luxury_assets_value = st.number_input('luxury_assets_value', min_value=0, value=0)
-bank_asset_value = st.number_input('bank_asset_value', min_value=0, value=0)
+residential_assets_value = st.number_input('residential_assets_value', min_value=0, value=0, help='Example: 200000')
+commercial_assets_value = st.number_input('commercial_assets_value', min_value=0, value=0, help='Example: 100000')
+luxury_assets_value = st.number_input('luxury_assets_value', min_value=0, value=0, help='Example: 50000')
+bank_asset_value = st.number_input('bank_asset_value', min_value=0, value=0, help='Example: 30000')
 
-education = st.selectbox('education', ['Graduate', 'Not Graduate'])
-self_employed = st.selectbox('self_employed', ['Yes', 'No'])
+education = st.selectbox('education', ['Select an option', 'Graduate', 'Not Graduate'])
+self_employed = st.selectbox('self_employed', ['Select an option', 'Yes', 'No'])
 
 if st.button('Predict'):
+    if education == 'Select an option' or self_employed == 'Select an option':
+        st.warning('Please select values for education and self_employed.')
+        st.stop()
+
     df_input = pd.DataFrame([{
         'income_annum': income_annum,
         'no_of_dependents': no_of_dependents,
@@ -43,7 +47,6 @@ if st.button('Predict'):
         'self_employed': self_employed
     }])
 
-    # SAME as notebook
     df_enc = pd.get_dummies(df_input, drop_first=True)
     df_enc = df_enc.reindex(columns=TRAIN_COLS, fill_value=0)
 
@@ -52,4 +55,3 @@ if st.button('Predict'):
 
     label = 'Yes' if pred == 1 else 'No'
     st.success(f'Loan Approved: {label}')
-
