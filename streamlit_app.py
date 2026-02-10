@@ -53,5 +53,5 @@ if st.button('Predict'):
     X_scaled = scaler.transform(df_enc)
     pred = model.predict(X_scaled)[0]
 
-label = 'Yes' if pred == 1 else 'No'
-st.success(f'Loan Approved: {label}')
+    label = 'Yes' if pred == 1 else 'No'
+    st.success(f'Loan Approved: {label}')
